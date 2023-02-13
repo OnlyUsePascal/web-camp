@@ -1,0 +1,60 @@
+/* -------------------- tag ---------------------- */
+body{
+    /* background-color: #dbe6e6 !important; */
+    margin : 0;
+    text-align: center;
+}
+
+h1{
+    font-family: 'Nabla', cursive;
+    font-size: 5.625rem;
+    margin: 50px auto 0px auto;
+    /* margin: 0px; */
+}
+
+h2{
+    font-family: 'Sono', sans-serif;
+    font-size: 2rem;
+}
+
+h3{
+    font-family: 'Sono', sans-serif;
+    font-size: 2rem;
+}
+
+/* -------------------- class ---------------------- */
+
+/* header container */
+.headerContainer{
+    background-color: #e1f8f5;
+    position: relative;
+}
+
+.headerText{
+    padding: 80px;
+}
+
+.cloud1{
+    position: absolute;
+    top: 50px;
+    right: 200px;
+}
+
+.cloud2{
+    position: absolute;
+    left: 200px;
+    bottom: 300px;
+}
+
+.middle-container{
+    
+}
+
+.profilePic{
+    height:150px;
+    width:auto;
+    margin: 20px 0;
+}
+
+/* -------------------- id ---------------------- */
+

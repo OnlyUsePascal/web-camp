@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testing site</title>
+    <link rel="stylesheet" href="./testSite.css">
+    <link rel="stylesheet" href="../../index.css">
+    <link rel="icon" href="../imgStore/favicon.ico">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nabla&family=Roboto+Slab:wght@600&display=swap" rel="stylesheet">
+
+    <style>
+        .internal{
+            background-color: blueviolet;
+        }
+
+        .orderCSS{
+            background-color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>Testing playground</h1>
+    </div>
+    <hr>
+    
+    <!-- Form -->
+    <h2>Form</h2>
+    <form action="">
+        <div>
+            <label>Text</label>
+            <input type="text">
+        </div>
+
+        <div>
+            <label>Password</label>
+            <input type="password">
+        </div>
+
+        <div>
+            <label>Date</label>
+            <input type="date">
+        </div>
+    </form>
+
+
+    <!-- CSS range -->
+    <hr>
+    <h2>CSS range</h2>
+
+    <p class="inline" style="background-color:greenyellow">
+        Inline CSS
+    </p>
+
+    <p class="internal">
+        Internal CSS
+    </p>
+
+    <p class="external">
+        External CSS                                            
+    </p>
+
+    <p class="orderCSS" style="background-color: aqua;">
+        Override order: Inline -> Internal -> External <br>
+        Use f12 to insepct this paragraph
+    </p>
+
+    <p class="overrideP">
+        Given 2 CSS files, parent is more prioritized <br> 
+        use !important to override
+    </p>
+
+    <!-- Class vs Id -->
+    <hr>
+    <h2>Class vs Id</h2>
+    <p class="classP" id="idP">
+        Order level: id -> class -> tag
+    </p>
+
+    <p class="class1P class2P">
+        Multiple classes can be used for one tag <br>
+        One Id only to be used
+    </p>
+
+    <!-- Pseudo class -->
+    <hr>
+    <h2>Pseudo class</h2>
+    <p class="hoverP">
+        Hover <br>
+        Move the mouse to this passage too see effect
+    </p>
+
+    <!-- Div box -->
+    <hr>
+    <h2>Div box</h2>
+    <div class="divTest">
+        background-color: #489afc; <br>
+        height: auto; <br>
+        width: 30%; <br>
+        border: solid; <br>
+        border-radius: 10px; <br>
+        border-width: 5px; <br>
+        padding: 10px; <br>
+        margin: 5px ; <br>    
+    </div>
+    
+    <div class="divTest2">
+        background-color: #418cff; <br>
+        height: auto; <br>
+        width: 20%; <br>
+        border: dotted; <br>
+        border-width: 10px; <br>
+        border-radius: 10px; <br>
+        padding: 5px; <br>
+        margin: 10px; <br>        
+    </div>
+
+    <div style="clear:both">
+        <p>Use style="clear:both" to push the div down</p>
+    </div>
+
+
+    <!-- Inline div  -->
+    <hr>
+    <h1>Making inline div</h1>
+
+    <div class="divSplit">
+        <p>Inline using inline-block</p>
+    </div>
+
+    <div class="div1 inline">
+        <p>This is div 1</p>
+        <p>Some paragraph</p>
+    </div>
+
+    <div class="div2 inline">
+        <p>This is div 2</p>
+    </div>
+
+    <div class="divSplit">
+        <p>Inline using float</p>
+    </div>
+
+    <div class="div1 float">
+        <p>This is div 1</p>
+        <p>Some paragraph</p>
+    </div>
+
+    <div class="div2 float">
+        <p>This is div 2</p>
+    </div>
+
+    <p style="clear:both">Clear effect to make another line</p>
+
+
+    <!-- span -->
+    <hr>
+    <h2>Span</h2>
+    <p>I am a cool <span class="wordDecor">guy</span></p>
+
+
+    <!-- Disappearing -->
+    <hr>
+    <h2>Disappearing</h2>
+    <p>Using display</p>
+    <p>That block is here &rarr; <span class="fade1">BLOCK</span> &larr;</p>
+    <p>Using visibility</p>
+    <p>That block is here &rarr; <span class="fade2">BLOCK</span> &larr;</p>
+
+
+    <!-- relative position -->
+    <hr>
+    <h2>relative position</h2>
+    <p>position compare to the block itself</p>
+    <div class="square div11">
+        <p style="margin:0">This is div 1</p>
+    </div>
+
+    <div class="square div12">
+        <p style="margin:0;">This is div 2</p>
+    </div>
+
+    <p>The content is move, but the trace is still here</p>
+    
+
+    <!-- absolute position -->
+    <hr>
+    <h2>absolute position</h2>
+    <p>position compared to the block's parent - default = whole web body</p>
+    <p>parent's position should be set to "relative"</p>
+    <div class="rectangle div21">
+        <p style="margin:0">Outside div</p>
+        
+        <div class="square div22">
+            <p style="margin:0">Inside div - treated as display:none</p>
+        </div>
+        <p>The content blow "inside div"here</p>
+    </div>    
+
+
+    <!-- Fixed position -->
+    <hr>
+    <h2>Fixed position</h2>
+    <button onclick="showElement('div31')">Click here</button>
+    <div class="square" id="div31">
+        <p style="margin:0">Dont mind me</p>
+    </div>
+    
+
+    <!-- centering a div -->
+    <hr>
+    <h2>center nested div horizontal</h2>
+    <p>Using center-align</p>
+    <div class="divCen">
+        <div style="background-color: blueviolet;">
+            <p>Wat sup</p> 
+        </div>
+
+        <div style="background-color:teal;width:300px">
+            <p>element with width is not affected</p>
+        </div>
+    </div>
+
+    <p>Using margin for element with width</p>
+    <div class="divCen">
+        <div class="div41">
+            <p>Do whatever you like</p>
+        </div>
+    </div>
+
+
+    <!-- center div vertical -->
+    <hr>
+    <h2>center div vertical</h2>
+    <div>
+
+    </div>
+
+
+    <!-- Choosing the font -->
+    <hr>
+    <h2>Getting the font</h2>
+    <p>Syntax: <code>font1,font2,...,font-family</code></p>
+    <p class="p1">Choosing the familiar font</p>
+    <p class="p2">Getting embeded font</p>
+
+    <!-- Dynamic & static size -->
+    <hr>
+    <h2>dynamic & static size</h2>
+    <div style="font-size:30px">
+        <p style="font-size:20px">
+            static size go with <code>px</code> <br>
+            size is not inherited from parent
+        </p> 
+    </div>
+    
+    <div style="font-size:200%">
+        <p style="font-size:50%;">
+            dynamic size go with <code>rem / em / % </code> <br>
+            16px = 1 rem = 1 em = 100% <br>
+
+            Size is inherited <br>
+            It is recommend to use <code>rem</code> to avoid inheritance since CSS3
+        </p>
+    </div>
+
+    
+
+</body>
+<script>
+    function showElement(eleId){
+        var ele = document.getElementById("div31");
+        ele.style.display = (ele.style.display == "none") ? "block" : "none";
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>

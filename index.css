@@ -1,15 +1,4 @@
-.headTable{
-    /* padding: 10px; */
-    /* border-spacing: 10px; */
-    /* border: 1px solid black; */
-
-}
-
-.headAvt{
-    width: 100px;
-    border-radius: 50%;
-}
-
+/* ------------ CSS for tag ------------ */
 hr{
     border-style: none;
     border-top-style: dotted;
@@ -22,10 +11,16 @@ body{
     background-color: #FCF8E8;
 }
 
+th{
+    border: 1px solid black;
+    /* border-spacing: 2px; */
+    padding: 15px;
+}
+
+/* ------------ CSS for class ------------ */
 .skillTable{
     border: 1px solid black;
 }
-
 
 .languageTable, .frameworkTable{
     /* border: 1px solid black; */
@@ -37,8 +32,21 @@ body{
     border: 1px solid black;
 }
 
-th{
-    border: 1px solid black;
-    /* border-spacing: 2px; */
-    padding: 15px;
+.headAvt{
+    width: 100px;
+    border-radius: 50%;
 }
+
+.overrideP{
+    background-color: blue;
+}
+/* ------------ CSS for id ------------ */
+
+
+
+
+
+
+
+
+
