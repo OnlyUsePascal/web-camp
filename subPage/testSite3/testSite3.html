@@ -92,11 +92,11 @@
             <li>innerHTML - comprising the tag</li>
             <li>textContent - only the text value</li>
         </ul>
-        
+
         <button onclick="changeHTML('#pSample')">Change HTML</button>
         <button onclick="changeText('#pSample')">Change text</button>
         <p id="pSample"><em>Text with "em" effect</em></p>
-        <hr>
+        <hr />
 
         <!-- attribute -->
         <h2>Attribute</h2>
@@ -104,11 +104,55 @@
             <li>getAttribute</li>
             <li>setAttribute</li>
         </ul>
+        <hr />
+
+        <!-- event listener -->
+        <h2>Event listener</h2>
+        <ul>
+            <li>Function param will be called by the assigned object when interacted</li>
+            <li>Function param is called "callback" function</li>
+        </ul>
+        <button id="testLisener">CLick me senpai</button>
+        <hr />
+
+        <!-- high order function -->
+        <h2>High order functions</h2>
+        <div>
+            <input id="num1" type="text" value="1" style="width: 70px" />
+            <input id="num2" type="text" value="2" style="width: 70px" />
+        </div>
+        <div>
+            <button
+                class="calcButton"
+                id="getPlus"
+                onclick="actionCall('#num1', '#num2', this.id)"
+            >
+                Plus
+            </button>
+            <br />
+            <button
+                class="calcButton"
+                id="getMul"
+                onclick="actionCall('#num1', '#num2', this.id)"
+            >
+                Multiply
+            </button>
+        </div>
         <hr>
 
+        <!-- js object -->
+        <h2>js object</h2>
+        <ul>
+            <li>Its like a json rather than oop style </li>
+            <li>Adding method using anonymous functions</li>
+            <li>Naming: capitalized first letter</li>
+        </ul>
+        <div>
+            Age <input id="objAge" type="text" style="width: 70px"> <br>
+            Height <input id="objHeight" type="text" style="width: 70px"> <br>
+            <button onclick="submitPerson('#objAge', '#objHeight')">Print info</button>
+        </div>
         
-
-
     </body>
 
     <script src="testSite3.js" charset="UTF-8"></script>

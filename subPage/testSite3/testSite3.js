@@ -40,13 +40,55 @@ function toggleDiv(eleId) {
 
 
 // change innter content
-function changeHTML(eleId){
+function changeHTML(eleId) {
     var ele = document.querySelector(eleId);
     ele.innerHTML = "<b>Some bold text</b>";
 }
 
-function changeText(eleId){
+function changeText(eleId) {
     var ele = document.querySelector(eleId);
     ele.textContent = "<b>Some another text</b>";
 }
 
+// eventListener
+document.querySelector("#testLisener").addEventListener("click", function() {
+    alert('get ricked rolled');
+});
+
+// High order function
+function getPlus(num1, num2) {
+    console.log(num1 + num2);
+}
+
+function getMul(num1, num2) {
+    console.log(num1 * num2);
+}
+
+function calc(num1, num2, func) {
+    func(num1, num2);
+}
+
+function actionCall(num1, num2, func) {
+    var n1 = parseInt(document.querySelector(num1).value),
+        n2 = parseInt(document.querySelector(num2).value);
+
+    calc(n1, n2, window[func]);
+    //or window[func](n1,n2);
+}
+
+// js object
+function Person(_age, _height){
+    this.age = _age;
+    this.height = _height;
+    this.printInfo = () => {
+        alert("age is " + this.age + ", height is " + this.height);
+    }
+}
+
+function submitPerson(ageId, heightId){
+    var age = parseInt(document.querySelector(ageId).value),
+        height = parseFloat(document.querySelector(heightId).value);
+    
+    var person = new Person(age, height);
+    person.printInfo();
+}
