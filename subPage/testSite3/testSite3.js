@@ -92,3 +92,15 @@ function submitPerson(ageId, heightId){
     var person = new Person(age, height);
     person.printInfo();
 }
+
+// playing sound
+document.querySelectorAll(".soundBtn").forEach(ele => {
+    // console.log(ele.textContent);
+    var soundUrl = './' + ele.textContent + '.mp3';
+    console.log(soundUrl);
+
+    ele.addEventListener('click', () => {
+        new Audio(soundUrl).play();
+
+    });
+});

@@ -22,18 +22,18 @@ document.querySelectorAll('.drum').forEach(ele => {
 });
 
 // listener for key
-document.addEventListener('keydown', key => {
-    console.log(key.key);
+document.addEventListener('keydown', button => {
+    console.log(button.key);
 
     //validation
-    if (keyToSound[key.key] === undefined) return;
-    console.log(key.key);
+    if (keyToSound[button.key] === undefined) return;
+    console.log(button.key);
 
     // play audio
-    playAudio(keyToSound[key.key]);
+    playAudio(keyToSound[button.key]);
 
     // add animation
-    playAnimation(key.key);
+    playAnimation(button.key);
 
 });
 
