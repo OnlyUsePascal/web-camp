@@ -38,31 +38,35 @@ $('.changeUrl').click(function () {
     $('#testUrl').attr('href', url);
 });
 
-// listener
+// listener activator
 var listenerStat = false;
 $('#keyListener').click(function () {
     listenerStat = !listenerStat;
 
     if (listenerStat) {
         this.textContent = 'ON';
+        // key press
         $(document).keypress(function (button) {
             $('#testListener').val(button.key);
+        })
+
+        // mouse over
+        $('#mouseOver').on('mouseover', function () {
+            this.textContent = "Yo mama";
+            this.style.fontSize = '50px';
+        })
+
+        $('#mouseOver').on('mouseout', function () {
+            this.textContent = "Mouse over (for jquery rmb to use mouseout)";
+            this.style.fontSize = '1rem';
         })
     }
     else {
         this.textContent = 'OFF';
         $(document).off();
+
+        $('#mouseOver').off();
     }
-})
-
-$('#mouseOver').on('mouseover', function () {
-    this.textContent = "Yo mama";
-    this.style.fontSize = '50px';
-})
-
-$('#mouseOver').on('mouseout', function () {
-    this.textContent = "Mouse over (for jquery rmb to use mouseout)";
-    this.style.fontSize = '1rem';
 })
 
 // animation
@@ -75,6 +79,14 @@ function jumpAround(){
                     animate({top: '+=100'}).
                     animate({left: '-=100'}).
                     animate({top: '-=100'});
-
-
 }
+
+
+
+
+
+
+
+
+
+

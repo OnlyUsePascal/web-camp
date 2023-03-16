@@ -32,7 +32,7 @@
         <h2>Some note</h2>
         <ul>
             <li>Component order: header -> body -> jquery -> js</li>
-            <li>If order: jquery -> js. then use $(document).ready</li>
+            <li>If order: jquery -> js -> body. then use $(document).ready</li>
         </ul>
 
         <hr />
@@ -109,11 +109,11 @@
 
         <!-- listener -->
         <h2>Listener</h2>
+        <button id="keyListener">Toggle listener</button>
         <ul>
             <li>For click (have done so many)</li>
             <li>
-                Key press <button id="keyListener">Toggle listener</button
-                ><br />
+                Key press <br/>
                 You have press: <input id="testListener" type="text" />
             </li>
             <li id="mouseOver">Mouse over (for jquery rmb to use mouseout)</li>
