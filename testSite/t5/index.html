@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <!-- bootsrap-->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous"
+        />
+        <script
+            src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+            integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+            integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+            crossorigin="anonymous"
+        ></script>
+        <!-- <link rel="stylesheet" href="./testSite4.css" /> -->
+    </head>
+    <body style="padding: 0 1%">
+        <h1>Nodejs playground</h1>
+        <hr />
+
+        <h2>Some note</h2>
+        <ul>
+            <li>Recommend to use local package</li>
+            <li>Flow: npm install -> require -> profitd</li>
+            <li>
+                Nodejs host dont restart to change <br />
+                Some package: nodemon
+            </li>
+            <li>
+                sendFile() <br />
+                <ul>
+                    <li>__dirname</li>
+                </ul>
+            </li>
+            <li>
+                Install multiple pack: npm i pack1 pack2 ...
+            </li>
+        </ul>
+        <hr />
+
+        <!-- test POST -->
+        <h2>Test POST</h2>
+        <ul>
+            <li>body-parser</li>
+            <li>action default = "/"</li>
+        </ul>
+
+        <div id="divSample">
+            Calculator:
+            <form method="post" action="/calc">
+                <input type="text" name="num1" style="width: 50px" value="1" />
+                <input type="text" name="num2" style="width: 50px" value="2" />
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+        <hr />
+
+        <!-- Test api -->
+        <h2>Test api</h2>
+        <ul>
+            <li>JSON - stringify / parse</li>
+            <li>Notice between http & https</li>
+            <li>
+                Weird: input img tag into node block wont work, only text,
+                h1,... somehow
+            </li>
+        </ul>
+        <div >
+            <form action="/weather" method="post">
+                <label for="weatherCity">Enter City here</label>
+                <input type="text" name="weatherCity" placeholder="Paris">
+                <button type="submit">Submit</button>
+            </form>
+            <ul id="weatherSample">
+
+            </ul>
+        </div>
+        <hr />
+
+        <!-- Express -->
+        <h2>Express</h2>
+        <ul>
+            <li>
+                Use static files: app.use("public");
+            </li>
+            <li>
+                E.g., If the file path is "/public/icon.png" <br>
+                -> only need to reference "icon.png"
+            </li>
+        </ul>
+    </body>
+
+    <script>
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+    </script>
+</html>
