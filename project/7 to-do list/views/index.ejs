@@ -1,0 +1,23 @@
+<%- include('header'); %>
+
+<div class="box" id="heading">
+    <h1><%=headingTitle%></h1>
+</div>
+
+<div class="box">
+    <!-- list task -->
+    <%for (let task of taskExtra) { %> 
+        <div class="item">
+            <input type="checkbox">
+            <p><%=task%></p>
+        </div>
+    <%} %>
+
+    <!-- add task -->
+    <form action=<%=actionType%> method="post" class="item">
+        <input type="text" placeholder="Task?" name="newTask" autocomplete="off"> 
+        <button type="submit" name="button">+</button>
+    </form>
+</div>
+
+<%- include('footer'); %>
