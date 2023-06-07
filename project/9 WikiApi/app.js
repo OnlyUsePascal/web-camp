@@ -6,20 +6,18 @@ const dbName = 'wikiDb';
 
 
 
-function dbCon(){
+async function dbCon(){
+    console.log('> db connect');
     const conOpt = {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     };
 
-    return new Promise((res, rej) => {
-        mongoose.connect(url + dbName, conOpt).then(() => {
-            console.log("Db connected");
-            res(100);
-        }).catch(() => {
-            console.log("Something went wrong");
-            res(404);
-        })
+    return mongoose.connect(url + dbName, conOpt).then(() => {
+        console.log("Db connected");    
+        return 200;
+    }).catch(err => {
+        throw err;
     })
 }
 
@@ -28,52 +26,81 @@ async function colCon(){
     const articleScheme = {
         title: {
             type: String,
-            required: true,
             unique: true,
+            required: true,
         },
         
-        content: {
-            type: String,
+        content: { 
+            type: String,  
         }
     }
     const colName = 'articles';
 
-    let col = await mongoose.connection.db.listCollections({name : colName}).next();
-    if (col !== null){
-        return mongoose.connection.db.collection(colName);
-    }
-
-    let col2 = mongoose.model(colName, articleScheme, colName);
-    return col2;
+    return mongoose.models[colName] || mongoose.model(colName, new mongoose.Schema(articleScheme), colName);
 }
 
+async function insertData(_title, _content){ 
+    console.log('> insert data');
 
-async function insertData(title, content){ 
-    console.log("> insert data")
-    const model = await colCon();
+    return colCon().then(async model => {
+        return model.create({
+            title : _title,
+            content : _content,
+        }).then(() => {
+            return 'Insert done';
+        }).catch (err => {
+            throw err;
+        });
+    }).catch(err => {
+        throw err;
+    })   
+}
 
-    model.insertMany([{title, content}]).then(() => {
-        console.log("insert done");
-    }).catch(() => {
-        console.log('something gone wrong');
-    });
+async function getData(docName = "what"){
+    console.log('> get data');
+
+    return colCon().then(async model => {
+        const docs = await model.find({}).cursor().toArray();
+        return docs;
+    }).catch(err => {
+        throw err;
+    })
 }
 
 (async () => {
-    await dbCon();
-    colCon();
-    insertData(); 
-    // console.log(22);
+    await dbCon(); 
 })();   
 
 
-// ==== FE ====
+// ==== FE ==== 
 const express = require("express");
 const bodyParser = require("body-parser");
-const ejs = require("ejs");
+const ejs = require("ejs");  
 
 const app = express();
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
 
+app.get('/articles', async (req, res, next) => {
+    getData().then(docs => {
+        res.send(docs);
+    }).catch(err => {
+        next(err);
+    })   
+});
+
+app.post('/articles', async (req, res, next) => {
+    console.log(req.body);
+    insertData(req.body.title, req.body.content).then(doc => {
+        res.send(doc);
+    }).catch(err => {
+        next(err);
+    });
+    // res.send('send nudes');
+});
+
+const port = 3000;
+app.listen(port, () => {
+    console.log('listening on port:' + port);
+})
