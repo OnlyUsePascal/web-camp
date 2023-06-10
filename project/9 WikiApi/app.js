@@ -39,6 +39,18 @@ async function colCon(){
     return mongoose.models[colName] || mongoose.model(colName, new mongoose.Schema(articleScheme), colName);
 }
 
+async function getData(_title){
+    console.log('> get data');
+
+    const condition = (_title) ? {title : _title} : {};
+    return colCon().then(async model => {
+        const docs = await model.find(condition).cursor().toArray();
+        return docs;
+    }).catch(err => {
+        throw err;
+    })
+}
+
 async function insertData(_title, _content){ 
     console.log('> insert data');
 
@@ -56,16 +68,66 @@ async function insertData(_title, _content){
     })   
 }
 
-async function getData(docName = "what"){
-    console.log('> get data');
+async function putData(_title = '', newData = {}){
+    console.log('> put data');
 
+    const condition = {title : _title};
     return colCon().then(async model => {
-        const docs = await model.find({}).cursor().toArray();
-        return docs;
+        return model.findOneAndReplace(
+            condition, 
+            newData,
+            {
+                returnDocument : 'after',
+                strict : false
+            }
+        ).then(doc => {
+            return doc;
+        }).catch(err => {
+            throw err;
+        })
     }).catch(err => {
         throw err;
     })
 }
+
+async function patchData(_title = '', newData = {}){
+    console.log('> patch data');
+
+    const condition = {title : _title};
+    return colCon().then(async model => {
+        return model.findOneAndUpdate(
+            condition, 
+            newData,
+            {
+                returnDocument : 'after',
+                strict: false
+            }
+        ).then(doc => {
+            return doc;
+        }).catch(err => {
+            throw err;
+        })
+    }).catch(err => {
+        throw err;
+    })
+}
+
+async function deleteData(_title = ''){
+    console.log('> delete data');
+
+    const condition = {title : _title};
+    return colCon().then(async model => {
+        return model.deleteMany(condition).then(result => {
+            return result;
+        }).catch (err => {
+            throw err;
+        })
+    }).catch(err => {
+        throw err;
+    })
+}
+
+
 
 (async () => {
     await dbCon(); 
@@ -82,25 +144,72 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
 
-app.get('/articles', async (req, res, next) => {
-    getData().then(docs => {
-        res.send(docs);
-    }).catch(err => {
-        next(err);
-    })   
-});
 
-app.post('/articles', async (req, res, next) => {
-    console.log(req.body);
-    insertData(req.body.title, req.body.content).then(doc => {
-        res.send(doc);
-    }).catch(err => {
-        next(err);
+app.route(`/articles`)
+    .get(async (req, res, next) => {
+        getData().then(docs => {
+            res.send(docs);
+        }).catch(err => {
+            next(err);
+        })
+    })
+
+    .post(async (req, res, next) => {
+        console.log(req.body);
+        insertData(req.body.title, req.body.content).then(docs => {
+            res.send(docs);
+        }).catch(err => {
+            next(err);
+        });
+        // res.send('send nudes');
+    })
+    
+    .delete(async (req, res, next) => {
+        deleteData().then(result => {
+            res.send(`Deleted ${result} document`);
+        }).catch(err => {
+            next(err);
+        })
     });
-    // res.send('send nudes');
-});
+
+
+app.route(`/articles/:title`)
+    .get(async (req, res, next) => {
+        getData(req.params.title).then(docs => {
+            res.send(docs);
+        }).catch(err => {
+            next(err);
+        })
+    })
+    
+    .put(async (req, res, next) => {
+        putData(req.params.title, req.body).then(result => {
+            res.send(result);
+        }).catch(err => {
+            next(err);
+        })
+    })
+
+    .patch(async (req, res, next) => {
+        patchData(req.params.title, req.body).then(result => {
+            res.send(result);
+        }).catch(err => {
+            next(err);
+        })
+    })
+
+    .delete(async (req, res, next) => {
+        deleteData(req.params.title).then(result => {
+            res.send(result);
+        }).catch(err => {
+            next(err);
+        })
+    });
+
+
 
 const port = 3000;
 app.listen(port, () => {
     console.log('listening on port:' + port);
 })
+
