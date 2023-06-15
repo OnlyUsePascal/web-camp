@@ -1,12 +1,12 @@
 const db = require('./appBack.js'); 
 
+//connect db
 (async () => {
     await db.dbCon();
-    // await db.
 })();
 
 
-// ==== fe ====
+// ==== fe ====  
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");  
@@ -46,7 +46,6 @@ app.route('/register')
 
     .post((req, res, next) => {
         db.addUser(req.body.username, req.body.pwd).then(result => {
-            // res.send(result);
             res.render('secrets');
         }).catch(err => {
             next(err);
@@ -58,4 +57,5 @@ const port = 3000;
 app.listen(port, () => {
     console.log('listening on port:' + port);
 })
+
 

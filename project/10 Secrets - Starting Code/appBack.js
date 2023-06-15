@@ -1,8 +1,13 @@
 const mongoose = require('mongoose');
+const encrypt = require('mongoose-encryption');
+const cryptoJs = require('crypto-js');
+const bcrypt = require('bcrypt');
+require('dotenv').config();
 
 const url = 'mongodb://127.0.0.1:27017/';
 const dbName = 'secretDb';
 
+//connect db
 const dbCon = () => {
     console.log('> Db connect');
     
@@ -14,16 +19,15 @@ const dbCon = () => {
     return mongoose.connect(url + dbName).then(() => {
         console.log('Db connected');
         return 200;
-    }).catch (err => {
-        throw err;
-    })
+    });
 }
 
+//connect collection
 const colCon = () => {
     console.log('> Collection connect');
 
-    //user
-    const colSchema = {
+    //user schema
+    const colSchema = new mongoose.Schema({
         username : {
             type : String,
             unique : true,
@@ -34,19 +38,24 @@ const colCon = () => {
             type : String,
             required : true,
         }
-    };
+    });
     const colName = 'user';
-    
-    return mongoose.models[colName] || mongoose.model(colName, new mongoose.Schema(colSchema), colName); 
+
+    //enable field encryption 
+    // let secret = process.env.SECRET; 
+    // colSchema.plugin(encrypt, {secret : secret, }); 
+
+    return mongoose.models[colName] || mongoose.model(colName, colSchema, colName); 
 }
 
-const addUser = (_username, _pwd) => {
+const addUser = async (_username, _pwd) => {
     console.log('> Add user');
 
     const model = colCon();
     return model.create({
         username : _username,
-        pwd : _pwd,
+        // pwd : cryptoJs.SHA256(_pwd).toString(), //1 time hash
+        pwd : await bcrypt.hash(_pwd, parseInt(process.env.SALTRND)), //hash + salt + many time
     }).then(() => {
         return 'Insert done';
     });
@@ -58,15 +67,18 @@ const findUser = (_username, _pwd) => {
     const model = colCon();
     const condition = {
         username : _username,
-        pwd : _pwd,
     };
 
     return model.findOne(condition)
         .then(doc => {
-            // console.log(doc);
-            return doc !== null;
+            if (doc === null) return false;
+            return bcrypt.compare(_pwd, doc.pwd); //hash + salt + many time
+            // return doc.pwd === cryptoJs.SHA256(_pwd).toString(); //1 time hash
+
     });
 }
+
+
 
 
 module.exports = {dbCon, 
