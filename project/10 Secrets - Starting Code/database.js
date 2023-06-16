@@ -54,15 +54,16 @@ const addUser = async (_username, _pwd) => {
     const model = colCon();
     return model.create({
         username : _username,
-        // pwd : cryptoJs.SHA256(_pwd).toString(), //1 time hash
         pwd : await bcrypt.hash(_pwd, parseInt(process.env.SALTRND)), //hash + salt + many time
-    }).then(() => {
-        return 'Insert done';
+    }).then(user => {
+        return user;
     });
 }
 
 const findUser = (_username, _pwd) => {
     console.log('> Find user');
+    console.log(_username + " " + _pwd);
+
 
     const model = colCon();
     const condition = {
@@ -70,15 +71,12 @@ const findUser = (_username, _pwd) => {
     };
 
     return model.findOne(condition)
-        .then(doc => {
-            if (doc === null) return false;
-            return bcrypt.compare(_pwd, doc.pwd); //hash + salt + many time
-            // return doc.pwd === cryptoJs.SHA256(_pwd).toString(); //1 time hash
-
+        .then(async user => {
+            if (_pwd === null) return user; 
+            if (!user || !(await bcrypt.compare(_pwd, user.pwd))) return null;
+            return user; 
     });
-}
-
-
+};
 
 
 module.exports = {dbCon, 
