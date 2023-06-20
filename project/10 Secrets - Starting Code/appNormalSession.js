@@ -21,7 +21,7 @@ app.use(session({
     resave : false, 
     saveUninitialized : false,
     cookie : {
-        maxAge : 1000 * 10, //cookie for 10sec
+        maxAge : 1000 * 15, //cookie for 10sec
     }
 }));
 app.use(passport.initialize());
@@ -35,30 +35,36 @@ passport.use('local', new LocalStrategy({
     usernameField: "username",
     passwordField: "pwd",
     passReqToCallback: true 
-  }, async (req, _username, _pwd, done) => {
+  }, async (req, _username, _pwd, cb) => {
     //retrieve db for account
     //3 mode, err, "false", actual user
     try {
         console.log(_username + " " + _pwd);
         let user = await db.findUser(_username, _pwd);
  
-        if (!user) return done(null, false);
-        return done(null, user);
+        if (!user) return cb(null, false);
+        return cb(null, user);
     } catch (err) {
         console.log(err);
-        return done(err);
+        return cb(err);
     }
 }));
-passport.serializeUser((user, done) => { 
-    done(null, user.username);
+
+passport.serializeUser((user, cb) => { 
+    console.log('* serialize');
+
+    cb(null, user.username);
+    
 });
-passport.deserializeUser(async (_username, done) => {
+passport.deserializeUser(async (_username, cb) => {
+    console.log('* deserialize');
+
     try {
         let user = await db.findUser(_username);
-        return done(null, user);
+        cb(null, user);
     } catch (err) {
-        console.log(err);
-        return done(err);
+        // console.log(err);
+        cb(err);
     }
 });
 
@@ -106,6 +112,13 @@ app.post('/login', (req, res, next) => {
 //     res.redirect('/secret');
 // });
 
+app.get('/logout', (req, res, next) => {
+    req.logout({}, err => {
+        if (err) return next(err);
+        res.redirect('/');
+    })
+});
+
 app.get('/register', (req, res) => {
     res.render('register');
 });
@@ -121,7 +134,6 @@ app.post('/register', (req, res, next) => {
         next(err);
     });
 });
-
 
 
 module.exports = app;

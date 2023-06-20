@@ -38,6 +38,8 @@ const colCon = () => {
             type : String,
             required : true,
         }
+
+        
     });
     const colName = 'user';
 
@@ -48,6 +50,7 @@ const colCon = () => {
     return mongoose.models[colName] || mongoose.model(colName, colSchema, colName); 
 }
 
+// add user
 const addUser = async (_username, _pwd) => {
     console.log('> Add user');
 
@@ -60,6 +63,7 @@ const addUser = async (_username, _pwd) => {
     });
 }
 
+// find user
 const findUser = (_username, _pwd) => {
     console.log('> Find user');
     console.log(_username + " " + _pwd);
@@ -72,7 +76,7 @@ const findUser = (_username, _pwd) => {
 
     return model.findOne(condition)
         .then(async user => {
-            if (_pwd === null) return user; 
+            if (_pwd === undefined) return user; 
             if (!user || !(await bcrypt.compare(_pwd, user.pwd))) return null;
             return user; 
     });
