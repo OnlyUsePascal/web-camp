@@ -1,0 +1,25 @@
+<%- include("header")%>
+
+<div class="box">
+    <div id="heading">
+        <h1><%=header%></h1>
+    </div>
+</div>
+
+<div class="box">
+    <form action=<%=header+ "/remove"%> method="post">
+        <% taskList.forEach(task => { %>
+            <div class="item">
+                <input type="checkbox" onchange="this.form.submit()" value=<%=task._id%> name="_id">
+                <p><%= task.content %></p>
+            </div>
+        <% }) %>
+    </form>
+
+    <form action= <%=header + "/add"%> method="post" class="item">
+        <input type="text" placeholder="More tasks?" name="taskExtra" autocomplete="off"> 
+        <button type="submit">+</button>
+    </form>
+</div>
+
+<%- include("footer")%>

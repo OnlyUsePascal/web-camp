@@ -1,0 +1,17 @@
+<%- include('header'); %>
+
+<h1>Database playground</h1>
+<hr>
+<h2>mongodb</h2>
+<p>=== sample data ===</p>
+<% for (let dataEle of dataList) { %>
+    <p><%=dataEle.data%></p>
+<% } %>
+<p>=== ===</p>
+
+<form action="/" method="post">
+    <input type="text" placeholder="Fill me senpai" name="data">
+    <button type="submit">Click me senpai</button>
+</form>
+
+<%- include('footer'); %>

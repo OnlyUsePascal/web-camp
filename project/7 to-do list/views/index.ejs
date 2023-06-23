@@ -9,14 +9,14 @@
     <%for (let task of taskExtra) { %> 
         <div class="item">
             <input type="checkbox">
-            <p><%=task%></p>
+            <p><%=task.taskData%></p>
         </div>
     <%} %>
 
     <!-- add task -->
     <form action=<%=actionType%> method="post" class="item">
-        <input type="text" placeholder="Task?" name="newTask" autocomplete="off"> 
-        <button type="submit" name="button">+</button>
+        <input type="text" placeholder="Task?" name="taskData" autocomplete="off"> 
+        <button type="submit" >+</button>
     </form>
 </div>
 
