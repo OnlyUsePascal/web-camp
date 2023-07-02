@@ -36,7 +36,6 @@ passport.use('google', new GoogleStrategy({
         clientID : clientID,
         clientSecret : clientSecret,
         callbackURL : 'http://localhost:3000/auth/google',
-        // userProfileURL : 'https://www.googleapis.com/oauth2/v3/userinfo'
     }, async (issuer, profile, cb) => {
         console.log('* authenticate ');
         try {
@@ -109,6 +108,10 @@ app.post('/login', (req, res, next) => {
     res.redirect('/login');
 })
 
+app.get('/login/google', passport.authenticate('google', {
+    scope: [ 'email' , 'profile' ]
+}));
+
 app.get('/register', (req, res) => {
     res.render('register');
 });
@@ -117,7 +120,6 @@ app.post('/register', (req, res, next) => {
     //temporary block 
     res.redirect('/register');
 });
-
 
 app.get('/register/google', passport.authenticate('google', {
     scope: [ 'email' , 'profile' ]
